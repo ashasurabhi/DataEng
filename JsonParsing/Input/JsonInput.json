@@ -1,0 +1,43 @@
+{
+  "workbook": {
+    "id": "wb12345",
+    "name": "Sales Dashboard",
+    "createdAt": "2025-09-16T10:00:00Z",
+    "owner": {
+      "id": "user789",
+      "name": "Asha Surabhi",
+      "email": "asha@example.com"
+    },
+    "views": [
+      {
+        "id": "view001",
+        "name": "Sales by Region",
+        "type": "worksheet",
+        "filters": ["Region", "Category"],
+        "data": [
+          {"region": "North", "sales": 120000, "profit": 30000},
+          {"region": "South", "sales": 95000, "profit": 20000},
+          {"region": "East", "sales": 78000, "profit": 15000},
+          {"region": "West", "sales": 110000, "profit": 25000}
+        ]
+      },
+      {
+        "id": "view002",
+        "name": "Profit Trend",
+        "type": "worksheet",
+        "filters": ["Month", "Category"],
+        "data": [
+          {"month": "Jan", "profit": 5000},
+          {"month": "Feb", "profit": 7000},
+          {"month": "Mar", "profit": 8000}
+        ]
+      },
+      {
+        "id": "view003",
+        "name": "Regional Map",
+        "type": "dashboard",
+        "image_url": "https://example.com/map.png"
+      }
+    ]
+  }
+}

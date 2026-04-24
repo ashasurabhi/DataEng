@@ -1,0 +1,36 @@
+{
+  "generated_at": "2025-01-04T13:45:22Z",
+  "customers": [
+    {
+      "customer_id": 4451,
+      "name": "Acme Corp",
+      "orders": [
+        {
+          "order_id": "ORD-1001",
+          "region": "North",
+          "items": [
+            {"sku": "A12", "qty": 2, "price": 120.5}
+          ]
+        }
+      ]
+    },
+    {
+      "customer_id": 7782,
+      "name": "Globex Ltd",
+      "orders": [
+        {
+          "order_id": "ORD-2001",
+          "region": "West",
+          "items": [
+            {"sku": "C99", "qty": 5, "price": 15.0}
+          ]
+        },
+        {
+          "order_id": "ORD-2002",
+          "region": "East",
+          "items": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+employee_sk,emp_id,name,department,salary,is_current,start_date,end_date
+1,E001,John,Engineering,85000,True,2022-01-01,
+2,E002,Sarah,Marketing,72000,True,2022-03-01,
+3,E003,Mike,Sales,65000,True,2022-06-01,
