@@ -1,0 +1,25 @@
+model Model
+	culture: en-AU
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-AU
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Opportunity","Resource Allocation","Resource","Date"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table Opportunity
+ref table 'Resource Allocation'
+ref table Resource
+ref table 'Opportunity Phase'
+ref table 'Phase Type'
+ref table Stage
+ref table Date
+
+ref cultureInfo en-AU
+

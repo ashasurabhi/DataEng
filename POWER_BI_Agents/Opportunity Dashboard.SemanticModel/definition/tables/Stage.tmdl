@@ -1,0 +1,19 @@
+/// Opportunity stage lookup for consistent filtering and business-friendly stage analysis.
+table Stage
+	lineageTag: a95cb17a-95d9-4ab7-aee0-56bfb71ff54c
+
+	column 'Opp Stage'
+		lineageTag: 07262377-e002-4340-980c-764ff956874f
+		isNameInferred
+		sourceColumn: [Opp Stage]
+
+	partition Stage = calculated
+		mode: import
+		source =
+				DISTINCT(
+				    SELECTCOLUMNS(
+				        FILTER('Opportunity', NOT ISBLANK('Opportunity'[Opp Stage])),
+				        "Opp Stage", 'Opportunity'[Opp Stage]
+				    )
+				)
+

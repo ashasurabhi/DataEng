@@ -1,0 +1,32 @@
+/// Lifecycle phase lookup used to classify opportunity phases.
+table 'Phase Type'
+	lineageTag: b6a47c16-5d64-4629-8fc4-5be00cf59b03
+
+	column 'Phase Name'
+		lineageTag: 894bb8ec-0d2d-42e3-be18-1e4a280474d1
+		isNameInferred
+		sourceColumn: [Phase Name]
+
+	column 'Phase Sort Order'
+		lineageTag: 2eec22a8-770f-4d43-b81c-acbba9533a15
+		isNameInferred
+		sourceColumn: [Phase Sort Order]
+
+	column 'Phase Description'
+		lineageTag: d9796d6c-fb6b-4455-8966-3ae039ec7a5b
+		isNameInferred
+		sourceColumn: [Phase Description]
+
+	partition 'Phase Type' = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Phase Name", STRING,
+				    "Phase Sort Order", INTEGER,
+				    "Phase Description", STRING,
+				    {
+				        {"EOI", 1, "Expression of interest phase"},
+				        {"Tender", 2, "Tender phase"}
+				    }
+				)
+

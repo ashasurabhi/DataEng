@@ -1,0 +1,132 @@
+table 'Resource Allocation'
+	lineageTag: 59c0eb97-7a1a-463d-8ce8-8d4b27245bad
+
+	column 'SF Opp Ref'
+		dataType: int64
+		formatString: 0
+		lineageTag: da8b9e13-ff49-4d50-aa2e-939118b41ba7
+		summarizeBy: none
+		sourceColumn: SF Opp Ref
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Unit'
+		dataType: string
+		lineageTag: 7c6c6422-b456-441e-94db-de40b0e44d1f
+		summarizeBy: none
+		sourceColumn: Business Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DTI Value (not CV)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 11128a00-36f7-4fcb-a80e-98ea9642a2a0
+		summarizeBy: sum
+		sourceColumn: DTI Value (not CV)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Award
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3dcc877b-61ec-461b-95c8-b2f3f6d90ea0
+		summarizeBy: none
+		sourceColumn: Award
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Cost Codes (Pre-Tender)'
+		dataType: string
+		lineageTag: c5605c23-f0a4-44d9-91f5-95555d907adc
+		summarizeBy: none
+		sourceColumn: Cost Codes (Pre-Tender)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost Codes (Tender)'
+		dataType: string
+		lineageTag: 3307326b-8cb2-4b93-88d1-d7664b3fd7ee
+		summarizeBy: none
+		sourceColumn: Cost Codes (Tender)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost Section Name'
+		dataType: string
+		lineageTag: 76220f05-2b05-4da1-939e-0cb9a701761e
+		summarizeBy: none
+		sourceColumn: Cost Section Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resources Title'
+		dataType: string
+		lineageTag: 7cf1e6b5-2377-436d-aee3-d9f58b9c77ca
+		summarizeBy: none
+		sourceColumn: Resources Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource Name'
+		dataType: string
+		lineageTag: 0738a688-b7b0-4779-98fe-7b9161169443
+		summarizeBy: none
+		sourceColumn: Resource Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Start'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 422503ce-98d6-4e5f-9353-50855c29c37b
+		summarizeBy: none
+		sourceColumn: Week Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Allocated Hours'
+		dataType: double
+		lineageTag: 6b647b99-d6c5-44a2-82be-9e80bf2493f3
+		summarizeBy: sum
+		sourceColumn: Allocated Hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Resource ID'
+		dataType: string
+		lineageTag: d4e4c2e5-f21d-433b-a5a2-31de31bfca55
+		summarizeBy: none
+		sourceColumn: Resource ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource Type'
+		dataType: string
+		lineageTag: 61892de7-8e8b-414b-b4d6-1d6234ab000a
+		summarizeBy: none
+		sourceColumn: Resource Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Allocation = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\AshaSurabhi\OneDrive - MIP (Aust) Pty Ltd\Documents\5 DTI\Alteryx\Opportunity Allocation_Mock.csv"), [Delimiter = ",", Columns = 13, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"SF Opp Ref", Int64.Type}, {"Business Unit", type text}, {"DTI Value (not CV)", Int64.Type}, {"Award", type date}, {"Cost Codes (Pre-Tender)", type text}, {"Cost Codes (Tender)", type text}, {"Cost Section Name", type text}, {"Resources Title", type text}, {"Resource Name", type text}, {"Week Start", type text}, {"Allocated Hours", type number}, {"Resource ID", type text}, {"Resource Type", type text}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"Week Start", type date}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

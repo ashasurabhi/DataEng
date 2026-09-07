@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Opportunity Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7391acea-ccc5-43a7-ad0c-4a438a87f4ea"
+  }
+}

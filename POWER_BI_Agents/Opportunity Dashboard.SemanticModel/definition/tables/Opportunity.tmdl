@@ -1,0 +1,154 @@
+table Opportunity
+	lineageTag: a533f7e5-284a-4056-abc6-061e0ac5b38a
+
+	column RecordID
+		dataType: int64
+		formatString: 0
+		lineageTag: f8318416-aae1-423c-89dd-cea8a1f6dd43
+		summarizeBy: none
+		sourceColumn: RecordID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SF Opp Ref'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fd7d0e4-f536-4800-becd-a7ac5119da36
+		summarizeBy: none
+		sourceColumn: SF Opp Ref
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 4ee07090-da3a-4592-b1fb-9f3238a4d10f
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity
+		dataType: string
+		lineageTag: 425cd810-6d1e-456a-a49b-da680e347e1b
+		summarizeBy: none
+		sourceColumn: Opportunity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: 86a113ad-b815-4f3e-a991-9f30a5c098e3
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Unit'
+		dataType: string
+		lineageTag: 6fd7536c-03c7-46fe-ac83-1d29f78e478b
+		summarizeBy: none
+		sourceColumn: Business Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: fff07f1c-1165-4d52-9fe3-86b0139ad4cf
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EOI Start'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d354a914-a699-42cb-bb51-38a782cad308
+		summarizeBy: none
+		sourceColumn: EOI Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'EOI Finish'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 62313973-3008-4843-8bc5-32c599eff9ec
+		summarizeBy: none
+		sourceColumn: EOI Finish
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Tender Start'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 005469b9-b8d0-45fa-b9d5-26bdb50c870b
+		summarizeBy: none
+		sourceColumn: Tender Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Tender Finish'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5626743b-36d3-450c-b1c6-8842e6550ae3
+		summarizeBy: none
+		sourceColumn: Tender Finish
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Award
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b691f0f4-83d1-4846-a0ad-ed8de7c5bebc
+		summarizeBy: none
+		sourceColumn: Award
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Approval Stage'
+		dataType: string
+		lineageTag: aa9cb06e-33c9-4fd5-ab12-d23295063115
+		summarizeBy: none
+		sourceColumn: Approval Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opp Owner'
+		dataType: string
+		lineageTag: 1afc45cb-ba78-4de3-8d7b-87ac33b9866e
+		summarizeBy: none
+		sourceColumn: Opp Owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opp Stage'
+		dataType: string
+		lineageTag: 2e5b3b2f-6728-49e3-943b-1079a06ae6e9
+		summarizeBy: none
+		sourceColumn: Opp Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Opportunity = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\AshaSurabhi\OneDrive - MIP (Aust) Pty Ltd\Documents\5 DTI\Alteryx\Opportunity Master_Mock.csv"), [Delimiter = ",", Columns = 15, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"RecordID", Int64.Type}, {"SF Opp Ref", Int64.Type}, {"Region", type text}, {"Opportunity", type text}, {"Sector", type text}, {"Business Unit", type text}, {"DTI Value (not CV)", Int64.Type}, {"EOI Start", type date}, {"EOI Finish", type date}, {"Tender Start", type date}, {"Tender Finish", type date}, {"Award", type date}, {"Approval Stage", type text}, {"Opp Owner", type text}, {"Opp Stage", type text}}, "en-US"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed column type",{{"DTI Value (not CV)", "Value"}})
+				in
+				  #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
