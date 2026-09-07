@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 14,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 581,
+            "y": 0
+          },
+          "nodeIndex": "Opportunity",
+          "nodeLineageTag": "a533f7e5-284a-4056-abc6-061e0ac5b38a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 32,
+            "y": 536
+          },
+          "nodeIndex": "Resource",
+          "nodeLineageTag": "26574b4d-83fc-4063-bc66-ce1d66246800",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -25
+          },
+          "nodeIndex": "Resource Allocation",
+          "nodeLineageTag": "59c0eb97-7a1a-463d-8ce8-8d4b27245bad",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 860,
+            "y": 372.5
+          },
+          "nodeIndex": "Opportunity Phase",
+          "nodeLineageTag": "ecc7e2f2-32be-4471-a5c0-963312a8d610",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1173,
+            "y": 474.5
+          },
+          "nodeIndex": "Phase Type",
+          "nodeLineageTag": "b6a47c16-5d64-4629-8fc4-5be00cf59b03",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1031,
+            "y": 24.5
+          },
+          "nodeIndex": "Stage",
+          "nodeLineageTag": "a95cb17a-95d9-4ab7-aee0-56bfb71ff54c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 372,
+            "y": 466.5
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "009645b6-9840-414c-a3c0-03ad264ff793",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

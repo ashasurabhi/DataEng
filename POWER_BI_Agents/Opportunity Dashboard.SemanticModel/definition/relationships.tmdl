@@ -1,0 +1,54 @@
+relationship AutoDetected_c857acda-1097-4fde-bf37-0cd0f8cc3818
+	fromColumn: 'Resource Allocation'.'SF Opp Ref'
+	toColumn: Opportunity.'SF Opp Ref'
+
+relationship AutoDetected_8413a10e-5860-427a-9e63-196c12e026ce
+	fromColumn: 'Resource Allocation'.'Resource ID'
+	toColumn: Resource.'Resource ID'
+
+relationship 'Opportunity Phase to Opportunity'
+	fromColumn: 'Opportunity Phase'.'SF Opp Ref'
+	toColumn: Opportunity.'SF Opp Ref'
+
+relationship 'Phase Type to Opportunity Phase'
+	fromColumn: 'Opportunity Phase'.'Phase Name'
+	toColumn: 'Phase Type'.'Phase Name'
+
+relationship 'Stage to Opportunity'
+	fromColumn: Opportunity.'Opp Stage'
+	toColumn: Stage.'Opp Stage'
+
+relationship 'Resource Allocation to Date'
+	fromColumn: 'Resource Allocation'.'Week Start'
+	toColumn: Date.Date
+
+relationship 'Opportunity to Date - EOI Start'
+	isActive: false
+	fromColumn: Opportunity.'EOI Start'
+	toColumn: Date.Date
+
+relationship 'Opportunity to Date - EOI Finish'
+	isActive: false
+	fromColumn: Opportunity.'EOI Finish'
+	toColumn: Date.Date
+
+relationship 'Opportunity to Date - Tender Start'
+	isActive: false
+	fromColumn: Opportunity.'Tender Start'
+	toColumn: Date.Date
+
+relationship 'Opportunity to Date - Tender Finish'
+	isActive: false
+	fromColumn: Opportunity.'Tender Finish'
+	toColumn: Date.Date
+
+relationship 'Opportunity Phase to Date - Start'
+	isActive: false
+	fromColumn: 'Opportunity Phase'.'Phase Start'
+	toColumn: Date.Date
+
+relationship 'Opportunity Phase to Date - Finish'
+	isActive: false
+	fromColumn: 'Opportunity Phase'.'Phase Finish'
+	toColumn: Date.Date
+

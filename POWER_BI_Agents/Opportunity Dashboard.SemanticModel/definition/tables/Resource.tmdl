@@ -1,0 +1,49 @@
+table Resource
+	lineageTag: 26574b4d-83fc-4063-bc66-ce1d66246800
+
+	column 'Resources Title'
+		dataType: string
+		lineageTag: 8ae925f9-0ffe-4231-ba35-39e856ad7300
+		summarizeBy: none
+		sourceColumn: Resources Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource Name'
+		dataType: string
+		lineageTag: d07ea880-ff74-4836-9384-b428567c2cc9
+		summarizeBy: none
+		sourceColumn: Resource Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource ID'
+		dataType: string
+		lineageTag: a4adebdf-fd61-416d-a3ba-03d66b0634e3
+		summarizeBy: none
+		sourceColumn: Resource ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource Type'
+		dataType: string
+		lineageTag: 1af199c1-a690-4ad4-89d0-550f70da0109
+		summarizeBy: none
+		sourceColumn: Resource Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Resources = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\AshaSurabhi\OneDrive - MIP (Aust) Pty Ltd\Documents\5 DTI\Alteryx\Resources_Mock.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Resources Title", type text}, {"Resource Name", type text}, {"Resource ID", type text}, {"Resource Type", type text}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

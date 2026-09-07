@@ -1,0 +1,102 @@
+/// Calendar dimension for opportunity and allocation reporting.
+table Date
+	lineageTag: 009645b6-9840-414c-a3c0-03ad264ff793
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isUnique
+		lineageTag: a5f31068-29b7-4532-9dd4-35194a7db9c3
+		sourceColumn: Date
+
+	column DateKey
+		dataType: int64
+		lineageTag: e315c92e-c897-474c-8f46-f44e0dab7409
+		sourceColumn: DateKey
+
+	column Year
+		dataType: int64
+		lineageTag: 233c0843-83a7-4c35-9d2b-e2b788d49ad7
+		sourceColumn: Year
+
+	column QuarterNumber
+		dataType: int64
+		lineageTag: 3187be58-99ee-4fdd-b1b1-8e6f6b9ac2d0
+		sourceColumn: QuarterNumber
+
+	column Quarter
+		dataType: string
+		lineageTag: 818a07c4-cb71-44d3-9784-2138f54ac93a
+		sourceColumn: Quarter
+
+	column MonthNumber
+		dataType: int64
+		lineageTag: 7d85fc60-1549-40a8-9edd-a4cbb75b0285
+		sourceColumn: MonthNumber
+
+	column MonthName
+		dataType: string
+		lineageTag: 5da4ae5c-8fb0-426c-8c15-11e48aec03dd
+		sourceColumn: MonthName
+		sortByColumn: MonthNumber
+
+	column MonthShort
+		dataType: string
+		lineageTag: 338b7da4-c77f-4e2a-9174-ee601ac780c7
+		sourceColumn: MonthShort
+		sortByColumn: MonthNumber
+
+	column MonthYear
+		dataType: string
+		lineageTag: 9cf8d58b-064e-4301-b4a4-f3310bc498ed
+		sourceColumn: MonthYear
+
+	column DayOfMonth
+		dataType: int64
+		lineageTag: 05a74f26-c4aa-4caf-acf2-df5384ff6b7b
+		sourceColumn: DayOfMonth
+
+	column DayOfWeekNumber
+		dataType: int64
+		lineageTag: 3b82b542-df55-44db-add0-76f030775087
+		sourceColumn: DayOfWeekNumber
+
+	column DayName
+		dataType: string
+		lineageTag: b15370c7-a86e-4402-aea3-bb4ee669e454
+		sourceColumn: DayName
+
+	column StartOfMonth
+		dataType: dateTime
+		lineageTag: 67031822-ab7e-43ea-8a9e-960ca4bb8354
+		sourceColumn: StartOfMonth
+
+	column EndOfMonth
+		dataType: dateTime
+		lineageTag: 00873a45-f3e7-44cd-b1ff-b773d701139e
+		sourceColumn: EndOfMonth
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    StartDate = #date(2024,1,1),
+				    EndDate = #date(2035,12,31),
+				    DateList = List.Dates(StartDate, Number.From(EndDate - StartDate) + 1, #duration(1,0,0,0)),
+				    TableFromList = Table.FromList(DateList, Splitter.SplitByNothing(), {"Date"}),
+				    AddColumns = Table.AddColumn(TableFromList, "DateKey", each Number.From(Date.ToText([Date], "yyyyMMdd")), Int64.Type),
+				    AddYear = Table.AddColumn(AddColumns, "Year", each Date.Year([Date]), Int64.Type),
+				    AddQuarterNumber = Table.AddColumn(AddYear, "QuarterNumber", each Date.QuarterOfYear([Date]), Int64.Type),
+				    AddQuarter = Table.AddColumn(AddQuarterNumber, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+				    AddMonthNumber = Table.AddColumn(AddQuarter, "MonthNumber", each Date.Month([Date]), Int64.Type),
+				    AddMonthName = Table.AddColumn(AddMonthNumber, "MonthName", each Date.MonthName([Date]), type text),
+				    AddMonthShort = Table.AddColumn(AddMonthName, "MonthShort", each Date.ToText([Date], "MMM"), type text),
+				    AddMonthYear = Table.AddColumn(AddMonthShort, "MonthYear", each Date.ToText([Date], "MMM yyyy"), type text),
+				    AddDayOfMonth = Table.AddColumn(AddMonthYear, "DayOfMonth", each Date.Day([Date]), Int64.Type),
+				    AddDayOfWeekNumber = Table.AddColumn(AddDayOfMonth, "DayOfWeekNumber", each Date.DayOfWeek([Date]) + 1, Int64.Type),
+				    AddDayName = Table.AddColumn(AddDayOfWeekNumber, "DayName", each Date.DayOfWeekName([Date]), type text),
+				    AddStartOfMonth = Table.AddColumn(AddDayName, "StartOfMonth", each Date.StartOfMonth([Date]), type date),
+				    AddEndOfMonth = Table.AddColumn(AddStartOfMonth, "EndOfMonth", each Date.EndOfMonth([Date]), type date)
+				in
+				    AddEndOfMonth
+

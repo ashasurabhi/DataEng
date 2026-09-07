@@ -1,0 +1,53 @@
+/// Lifecycle phase instances derived from opportunity milestone dates. Grain: one row per opportunity and phase.
+table 'Opportunity Phase'
+	lineageTag: ecc7e2f2-32be-4471-a5c0-963312a8d610
+
+	column 'SF Opp Ref'
+		lineageTag: f3ee7221-cbf1-47b7-bfba-d73e33c19aec
+		isNameInferred
+		sourceColumn: [SF Opp Ref]
+
+	column 'Phase Name'
+		lineageTag: ac68d494-f5a9-4279-ba07-8660f6ba0f28
+		isNameInferred
+		sourceColumn: [Phase Name]
+
+	column 'Phase Start'
+		lineageTag: 6668e258-d31b-4e6d-a56c-1809ef12ff06
+		isNameInferred
+		sourceColumn: [Phase Start]
+
+	column 'Phase Finish'
+		lineageTag: bfb044e9-7967-46ed-9cf2-0502875bc4c5
+		isNameInferred
+		sourceColumn: [Phase Finish]
+
+	column 'Phase Days'
+		lineageTag: 03c3d98f-508d-456d-867a-e15c1b0291d1
+		isNameInferred
+		sourceColumn: [Phase Days]
+
+	partition 'Opportunity Phase' = calculated
+		mode: import
+		source =
+				VAR EOIPhases =
+				    SELECTCOLUMNS(
+				        FILTER('Opportunity', NOT ISBLANK('Opportunity'[EOI Start])),
+				        "SF Opp Ref", 'Opportunity'[SF Opp Ref],
+				        "Phase Name", "EOI",
+				        "Phase Start", 'Opportunity'[EOI Start],
+				        "Phase Finish", 'Opportunity'[EOI Finish],
+				        "Phase Days", IF(ISBLANK('Opportunity'[EOI Finish]), BLANK(), DATEDIFF('Opportunity'[EOI Start], 'Opportunity'[EOI Finish], DAY))
+				    )
+				VAR TenderPhases =
+				    SELECTCOLUMNS(
+				        FILTER('Opportunity', NOT ISBLANK('Opportunity'[Tender Start])),
+				        "SF Opp Ref", 'Opportunity'[SF Opp Ref],
+				        "Phase Name", "Tender",
+				        "Phase Start", 'Opportunity'[Tender Start],
+				        "Phase Finish", 'Opportunity'[Tender Finish],
+				        "Phase Days", IF(ISBLANK('Opportunity'[Tender Finish]), BLANK(), DATEDIFF('Opportunity'[Tender Start], 'Opportunity'[Tender Finish], DAY))
+				    )
+				RETURN
+				    UNION(EOIPhases, TenderPhases)
+
